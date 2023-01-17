@@ -1,2 +1,2 @@
 # Spotify-Hit-Predictor
-This repo provide a way to make a ML model to predict the hit rate of Songs on Spotify. 
+This project's purpose is to create a binary classification model that can predict whether a Spotify song will be a hit or a flop. There will be a web interface that allows users to search for songs, and then we will extract the features of those songs and use them for classification using the Spotify API. The model should correctly predict the class, and we will train our classification model using the Billboard Hot 100 as a benchmark. 
