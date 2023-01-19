@@ -32,7 +32,7 @@ The following code finds total number of missing values in the dataframe, 'df'.
 - Deleting missing Values (not preferable) (deleting entire row or column)
 - Imputing missing values (replacing with arbitary value, mean, mode, median, forward-fill, backward-fill, or Interpolation method)
 
-## CLass Imbalance
+## Class Imbalance
 **Our dataframe doesn't consists of completely balanced data**
 <br>
 A classification data set with skewed class proportions is called imbalanced. Classes that make up a large proportion of the data set are called majority classes. Those that make up a smaller proportion are minority classes.
