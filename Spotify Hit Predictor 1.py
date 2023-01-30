@@ -63,9 +63,10 @@ X = pd.DataFrame(scaler.transform(X), columns=X.columns)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.8, random_state=0)
 
-model = RandomForestClassifier(n_estimators=1000, max_depth=24, random_state=0, n_jobs=8)
+model = RandomForestClassifier(n_estimators=1000, max_depth=24, random_state=0, n_jobs=-1)
 model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
 score = accuracy_score(y_test, y_pred)
-
 print(score)
+
+# At n_estimators=1000 and max_depth=24 accuracy=80.27
