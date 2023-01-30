@@ -13,7 +13,7 @@ pd.set_option("display.max_columns", None)
 
 # Loading dataset
 decades = ["60", "70", "80", "90", "00", "10"]
-df = [pd.read_csv("C:/Users/HP/Documents/Spotify Hit Predictor Dataset/dataset-of-" + i + "s.csv") for i in decades]
+df = [pd.read_csv("dataset-of-" + i + "s.csv") for i in decades]
 for i, decade in enumerate([1960, 1970, 1980, 1990, 2000, 2010]):
     df[i]['decade'] = pd.Series(decade, index=df[i].index)
 df = pd.concat(df).reset_index(drop=True)
