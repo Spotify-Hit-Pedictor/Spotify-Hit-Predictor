@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 import matplotlib as pt
 import seaborn as sb
 
@@ -118,9 +117,9 @@ df["energy"] = min_scaled
 # plt.show()
 
 # print(df["key"].unique())
-key_target = pd.crosstab(index=df["key"], columns=df["target"])
+# key_target = pd.crosstab(index=df["key"], columns=df["target"])
 # print(key_target)
-#
+
 df = pd.get_dummies(data=df, columns=["key"])
 df.drop(labels=["key_11"], axis=1, inplace=True)
 # print(df.columns)
@@ -143,6 +142,9 @@ df["loudness"] = pd.cut(x=df["loudness"], bins=[-40, -30, -20, -10, 0])
 loudness_target = pd.crosstab(index=df["loudness"], columns=df["target"])
 # print(loudness_target)
 df = pd.get_dummies(data=df, columns=["loudness"])
+changed_names = {'loudness_(-40, -30]': 'loudness_3', 'loudness_(-30, -20]': 'loudness_2',
+                 'loudness_(-20, -10]': 'loudness_1', 'loudness_(-10, 0]': 'loudness_0'}
+df.rename(columns=changed_names, inplace=True)
 # print(df.describe(include="all"))
 # print(df.columns)
 # print(df.shape)
@@ -227,6 +229,139 @@ df["acousticness"] = rob_scaled
 # df["instrumentalness"].plot()
 # plt.show()
 
+# liveness
+# df["liveness"].plot()
+# plt.show()
+
+# print(df["liveness"].describe())
+# print(df["liveness"].unique())
+
+# df["liveness"] = pd.cut(x=df["liveness"], bins=[-1, 0, 0.1, 0.2, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1])
+# print(df["liveness"].unique())
+# liveness_target = pd.crosstab(index=df["liveness"], columns=df["target"])
+# print(liveness_target)
+# df.drop(labels=["liveness"], axis=1, inplace=True)
+# print(df.columns)
+
+# print(sum(df["liveness"] >= 0.75))
+# df.drop(labels=df[df["liveness"] >= 0.75].index, axis=0, inplace=True)
+
+rob_scaler = RobustScaler(quantile_range=(25, 75))
+rob_scaled = rob_scaler.fit_transform(df["liveness"].to_numpy().reshape(-1, 1))
+df["liveness"] = rob_scaled
+# print(df["liveness"].describe())
+
+# df["liveness"].plot()
+# plt.show()
+
+# valence
+# df["valence"].plot()
+# plt.show()
+
+# print(df["valence"].describe())
+# print(df["valence"].unique())
+
+# print(sum(df["valence"] <= 0.10))
+# df.drop(labels=df[df["valence"] <= 0.10].index, axis=0, inplace=True)
+
+# df["valence"] = pd.cut(x=df["valence"], bins=[-1, 0, 0.1, 0.2, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1])
+# print(df["valence"].unique())
+# valence_target = pd.crosstab(index=df["valence"], columns=df["target"])
+# print(valence_target)
+
+rob_scaler = RobustScaler(quantile_range=(25, 75))
+rob_scaled = rob_scaler.fit_transform(df["valence"].to_numpy().reshape(-1, 1))
+df["valence"] = rob_scaled
+# print(df["valence"].describe())
+# df.drop(labels=["valence"], axis=1, inplace=True)
+
+# df["valence"].plot()
+# plt.show()
+
+# tempo
+# df["tempo"].plot()
+# plt.show()
+
+# print(sum(df["tempo"] <= 50))
+# print(sum(df["tempo"] >= 200))
+
+# df["tempo"] = pd.cut(x=df["tempo"], bins=[0, 50, 100, 150, 200, 250])
+# print(df["tempo"].unique())
+# tempo_target = pd.crosstab(index=df["tempo"], columns=df["target"])
+# print(tempo_target)
+
+# df.drop(labels=df[df["tempo"] <= 50].index, axis=0, inplace=True)
+# df.drop(labels=df[df["tempo"] >= 200].index, axis=0, inplace=True)
+
+# rob_scaler = RobustScaler(quantile_range=(25, 75))
+# rob_scaled = rob_scaler.fit_transform(df["tempo"].to_numpy().reshape(-1, 1))
+# df["tempo"] = rob_scaled
+df.drop(labels=["tempo"], axis=1, inplace=True)
+# df["tempo"] = min_scaler.fit_transform(df["tempo"].to_numpy().reshape(-1, 1))
+# print(df["tempo"].describe())
+
+# print(sum(df["tempo"] <= -1.5))
+# print(sum(df["tempo"] >= 1.5))
+
+# df["tempo"].plot()
+# plt.show()
+
+# duration_ms
+# df["duration_ms"].plot()
+# plt.show()
+
+# print(df["duration_ms"].describe())
+
+# print(sum(df["duration_ms"] >= 5 * 1e5))
+# print(sum(df["duration_ms"] <= 1e5))
+
+# df.drop(labels=df[df["duration_ms"] >= 5 * 1e5].index, axis=0, inplace=True)
+# df.drop(labels=df[df["duration_ms"] <= 1e5].index, axis=0, inplace=True)
+# df["duration_ms"] = pd.cut(x=df["duration_ms"], bins=[0, 0.5 * 1e6, 1 * 1e6, 4 * 1e6])
+# print(df["duration_ms"].unique())
+# duration_ms_target = pd.crosstab(index=df["duration_ms"], columns=df["target"])
+# print(duration_ms_target)
+# df = pd.get_dummies(data=df, columns=["duration_ms"])
+# rob_scaler = RobustScaler(quantile_range=(0, 75))
+df["duration_ms"] = min_scaler.fit_transform(df["duration_ms"].to_numpy().reshape(-1, 1))
+# print(df["duration_ms"].describe())
+# df.drop(labels=["duration_ms"], axis=1, inplace=True)
+
+# time_signature
+# df["time_signature"].plot()
+# plt.show()
+
+# print(df["time_signature"].describe())
+# print(df["time_signature"].unique())
+
+time_signature_target = pd.crosstab(index=df["time_signature"], columns=df["target"])
+# print(time_signature_target)
+df = pd.get_dummies(data=df, columns=["time_signature"])
+df.drop(labels=["time_signature_1"], axis=1, inplace=True)
+# print(df.describe())
+
+# chorus_hit
+# df["chorus_hit"].plot()
+# plt.show()
+
+# print(df["chorus_hit"].describe())
+# print(df["chorus_hit"].unique())
+
+# df["chorus_hit"] = pd.cut(x=df["chorus_hit"], bins=[-1, 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 500])
+# print(df["chorus_hit"].unique())
+# chorus_hit_target = pd.crosstab(index=df["chorus_hit"], columns=df["target"])
+# print(chorus_hit_target)
+
+# df.drop(labels=df[df["chorus_hit"] <= 10].index, axis=0, inplace=True)
+# df.drop(labels=df[df["chorus_hit"] >= 100].index, axis=0, inplace=True)
+
+# df["chorus_hit"] = min_scaler.fit_transform(df["chorus_hit"].to_numpy().reshape(-1, 1))
+# print(df["chorus_hit"].describe())
+df.drop(labels=["chorus_hit"], axis=1, inplace=True)
+
+# df["chorus_hit"].plot()
+# plt.show()
+
 # sections
 # df["sections"].plot()
 # plt.show()
@@ -243,37 +378,35 @@ df["acousticness"] = rob_scaled
 # sections_target = pd.crosstab(index=df["sections"], columns=df["target"])
 # print(sections_target)
 # df = pd.get_dummies(data=df, columns=["sections"])
-# print(len(df.columns))
 df.drop(labels=["sections"], axis=1, inplace=True)
-
-# print(df.columns)
-changed_names = {'loudness_(-40, -30]': 'loudness_3', 'loudness_(-30, -20]': 'loudness_2',
-                 'loudness_(-20, -10]': 'loudness_1', 'loudness_(-10, 0]': 'loudness_0'}
-df.rename(columns=changed_names, inplace=True)
 # print(df.columns)
 
+# df["sections"].plot()
+# plt.show()
 
-def score_df(df1):
-    X1 = df1.drop(labels=["target"], axis=1)
-    y1 = df1["target"]
-    scaler = MinMaxScaler()
-    drop_feat = ["chorus_hit"]
-    scale_feat = ["tempo", "duration_ms", "decade"]
-    X2 = X1[scale_feat]
-    scaler.fit(X2)
-    X2 = pd.DataFrame(scaler.transform(X2), index=X2.index, columns=X2.columns)
-    X1.drop(labels=drop_feat, axis=1, inplace=True)
-    X1.drop(labels=scale_feat, axis=1, inplace=True)
-    X1 = pd.concat([X1, X2], axis=1)
-    X1_train, X1_test, y1_train, y1_test = train_test_split(X1, y1, train_size=0.8, random_state=0)
-    for i in range(100, 1100, 100):
-        for j in [64]:
-            model = RandomForestClassifier(n_estimators=i, max_depth=j, n_jobs=-1, random_state=0)
-            model.fit(X1_train, y1_train)
-            y1_pred = model.predict(X1_test)
-            score = accuracy_score(y1_test, y1_pred)
-            print("n_estimators =", i, "max_depth =", j, "Score =", score)
+# decade
+# df["decade"].plot()
+# plt.show()
 
+# decade_target = pd.crosstab(index=df["decade"], columns=df["target"])
+# print(decade_target)
 
-score_df(df)
-# At n_estimators=500 and max_depth=64 accuracy=89.42
+# df["decade"] = min_scaler.fit_transform(df["decade"].to_numpy().reshape(-1, 1))
+# print(df["decade"].describe())
+df = pd.get_dummies(data=df, columns=["decade"])
+# df.drop(labels=["decade_2010"], axis=1, inplace=True)
+# print(df.describe())
+print(df.shape)
+
+# model
+X = df.drop(labels=["target"], axis=1)
+y = df["target"]
+X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.8, random_state=0)
+for i in range(100, 1100, 100):
+    model = RandomForestClassifier(n_estimators=i, max_depth=64, n_jobs=-1, class_weight="balanced", random_state=0)
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+    score = accuracy_score(y_test, y_pred)
+    print("n_estimators =", i, "Score =", score)
+
+# At n_estimators=1000 and max_depth=64 accuracy=89.29
