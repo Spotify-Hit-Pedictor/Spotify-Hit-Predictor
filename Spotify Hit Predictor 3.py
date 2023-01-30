@@ -11,6 +11,14 @@ from sklearn.metrics import accuracy_score
 pd.set_option("display.max_rows", None)
 pd.set_option("display.max_columns", None)
 
+#fetching data
+! wget https://raw.githubusercontent.com/Spotify-Hit-Pedictor/Spotify-Hit-Predictor/main/archive/dataset-of-60s.csv 
+! wget https://raw.githubusercontent.com/Spotify-Hit-Pedictor/Spotify-Hit-Predictor/main/archive/dataset-of-70s.csv 
+! wget https://raw.githubusercontent.com/Spotify-Hit-Pedictor/Spotify-Hit-Predictor/main/archive/dataset-of-80s.csv 
+! wget https://raw.githubusercontent.com/Spotify-Hit-Pedictor/Spotify-Hit-Predictor/main/archive/dataset-of-90s.csv 
+! wget https://raw.githubusercontent.com/Spotify-Hit-Pedictor/Spotify-Hit-Predictor/main/archive/dataset-of-00s.csv 
+! wget https://raw.githubusercontent.com/Spotify-Hit-Pedictor/Spotify-Hit-Predictor/main/archive/dataset-of-10s.csv
+
 # Loading dataset
 decades = ["60", "70", "80", "90", "00", "10"]
 df = [pd.read_csv("dataset-of-" + i + "s.csv") for i in decades]
