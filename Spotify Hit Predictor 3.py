@@ -11,7 +11,7 @@ from sklearn.metrics import accuracy_score
 pd.set_option("display.max_rows", None)
 pd.set_option("display.max_columns", None)
 
-#fetching data
+# Fetching data
 ! wget https://raw.githubusercontent.com/Spotify-Hit-Pedictor/Spotify-Hit-Predictor/main/archive/dataset-of-60s.csv 
 ! wget https://raw.githubusercontent.com/Spotify-Hit-Pedictor/Spotify-Hit-Predictor/main/archive/dataset-of-70s.csv 
 ! wget https://raw.githubusercontent.com/Spotify-Hit-Pedictor/Spotify-Hit-Predictor/main/archive/dataset-of-80s.csv 
