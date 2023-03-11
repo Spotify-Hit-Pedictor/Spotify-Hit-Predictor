@@ -8,7 +8,7 @@ from sklearn.metrics import roc_auc_score
 from sklearn.preprocessing import StandardScaler
 
 decades = ["60", "70", "80", "90", "00", "10"]
-df = [pd.read_csv("./datasets/dataset-of-" + i + "s.csv") for i in decades]
+df = [pd.read_csv("./archive/dataset-of-" + i + "s.csv") for i in decades]
 for i, decade in enumerate([1960, 1970, 1980, 1990, 2000, 2010]):
     df[i]["decade"] = pd.Series(decade, index=df[i].index)
 df = pd.concat(df)
